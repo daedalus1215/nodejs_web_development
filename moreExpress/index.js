@@ -5,16 +5,16 @@ var app = express();
 
 
 app.use(express.static("public"));
-
+app.set("view engine", "ejs"); // that way when we res.render("home"); it doesn't need to be "home.ejs".
 
 app.get('/', function(req, res) {
   console.log("working");
-  res.render("home.ejs");
+  res.render("home");
 });
 
 app.get('/fallin/:thing', function(req, res) {
   var thing = req.params.thing;
-  res.render("love.ejs", {thingVar: thing.toUpperCase()});
+  res.render("love", {thingVar: thing.toUpperCase()});
 });
 
 
@@ -26,7 +26,7 @@ app.get('/posts', function(req, res) {
     {title: "Post 4", author: "Cyrus"}
   ];
   
-  res.render("posts.ejs", {posts: posts});
+  res.render("posts", {posts: posts});
 });
 
 
