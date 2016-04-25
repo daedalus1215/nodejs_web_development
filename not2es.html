@@ -1,0 +1,20 @@
+<section>
+  <article>
+    <p>
+      To-Do:
+      <ul>
+        <li>Show the `*` route matcher.</li>
+        <li>Write the routes containing route parameters.</li>
+        <li>Discuss route order.</li>
+      </ul>
+    </p>
+    <p>
+      The * is a great way of catching all url requests for routes we do not support. e.g.
+      <code>
+        app.get('*', function(req, res) {
+          res.send("You are a star.");
+        });
+      </code>
+    </p>
+  </article>
+</section>
