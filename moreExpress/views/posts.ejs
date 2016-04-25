@@ -1,0 +1,7 @@
+<link rel="stylesheet" href="app.css">
+<h1>Posts</h1>
+<p>
+  <% posts.forEach(function(post) { %>
+  <li><%= post.title %> - <%= post.author %></li>
+  <% }) %>
+</p>
