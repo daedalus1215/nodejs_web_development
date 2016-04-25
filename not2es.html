@@ -1,19 +1,59 @@
 <section>
   <article>
+    <h3></h3>
     <p>
-      To-Do:
+     Going over this.
       <ul>
-        <li>Show the `*` route matcher.</li>
-        <li>Write the routes containing route parameters.</li>
-        <li>Discuss route order.</li>
+        <li><code>res.render()</code></li>
+        <li>
+          What is EJS and why are we going to use it: EJS is <strong>Embedded JavaScript templates for nodes</strong>. It allows us to embed javascript inside of our HTML page. 
+        </li>
+        <li>Pass variables to EJS templates.</li>
       </ul>
     </p>
     <p>
-      The * is a great way of catching all url requests for routes we do not support. e.g.
+      Setup normal application with <code>npm init</code>, creating the <code>app.js</code>, then installing express <code>npm install express --save</code>. 
+    </p>
+    <p>
+      Then we need to install ejs: <code>npm install ejs --save</code>.
+    </p>
+  </article>
+  <article>
+    <h3>Examples</h3>
+    <p>
+      This is a simple EJS templating example
       <code>
-        app.get('*', function(req, res) {
-          res.send("You are a star.");
+        app.get('/', function(req, res) {
+          console.log("working");
+          res.render("home.ejs");
         });
+      </code>
+      The <code>home.ejs</code> file looks like: 
+      <code>
+        <h1>This is the home page!</h1>
+        <img src="http://petguide.com.vsassets.com/wp-content/uploads/2014/02/pomsky-puppy-cute.jpg" alt="">
+      </code>
+    </p>
+  </article>
+  <article>
+    <h3>Dynamic Example</h3>
+    <p>
+      In order to do a dynamic EJS templating example we must use <code><%= %></code> to embed our javascript. Below is a great example of how we use it.
+    </p>
+    <p>
+      In the <code>index.js</code> file we would have a route that looks like:
+      <code>
+        app.get('/fallin/:thing', function(req, res) {
+          var thing = req.params.thing;
+          res.render("love.ejs", {thingVar: thing});
+        });
+      </code>
+      Then inside of <code>love.ejs</code> we would have something like: 
+      <code>
+        <h1>You fell in love with: <%= thingVar %> </h1>
+        <p>
+          This is the love.ejs file.
+        </p>
       </code>
     </p>
   </article>
