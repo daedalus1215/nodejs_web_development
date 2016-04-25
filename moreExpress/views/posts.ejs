@@ -1,7 +1,10 @@
-<link rel="stylesheet" href="app.css">
+<% include partials/header %>
+
 <h1>Posts</h1>
 <p>
   <% posts.forEach(function(post) { %>
   <li><%= post.title %> - <%= post.author %></li>
   <% }) %>
 </p>
+
+<% include partials/header %>
