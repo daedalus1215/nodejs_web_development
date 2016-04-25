@@ -17,5 +17,10 @@ app.get('/fallin/:thing', function(req, res) {
   res.render("love.ejs", {thingVar: thing});
 });
 
+app.get('/da/:thing', function(req, res) {
+  var thing = req.params.thing;
+  res.render("love.ejs", {thingVar: thing});
+});
+
 
 app.listen(3000);
