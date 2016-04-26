@@ -1,8 +1,15 @@
 <% include partials/header.ejs %>
-<h1>Create a New campground</h1>
-<form action="/campgrounds" method="POST">
-  <input type="text" name="name" placeholder="name">
-  <input type="text" name="img" placeholder="image url">
-  <button>Submit!</button>
-</form>
+<div class="container">
+  <header class="jumbotron">
+    <h1>Create a New campground</h1>
+  </header>
+    <p>
+     <a href="/campgrounds">Go Back</a> 
+     <form action="/campgrounds" method="POST">
+        <input type="text" name="name" placeholder="name">
+        <input type="text" name="img" placeholder="image url">
+        <button>Submit!</button>
+     </form>
+    </p>
+</div>
 <% include partials/footer.ejs %>
