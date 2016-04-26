@@ -1,60 +1,43 @@
 <section>
   <article>
-    <h3></h3>
+    <h3>Working with post routes</h3>
     <p>
-     Going over this.
-      <ul>
-        <li><code>res.render()</code></li>
-        <li>
-          What is EJS and why are we going to use it: EJS is <strong>Embedded JavaScript templates for nodes</strong>. It allows us to embed javascript inside of our HTML page. 
-        </li>
-        <li>Pass variables to EJS templates.</li>
-      </ul>
+      In order to handle a post route we need to make sure that we use another package. When we are sending over the post with a form, one of our <code>app.js</code> routes will need to receive the post information, and in order to do that we need the <code>body-parser</code> package.
+      <code>npm install body-parser --save</code> perusual.
     </p>
     <p>
-      Setup normal application with <code>npm init</code>, creating the <code>app.js</code>, then installing express <code>npm install express --save</code>. 
-    </p>
-    <p>
-      Then we need to install ejs: <code>npm install ejs --save</code>.
+      The <code>bodyParser</code> object exposes various factories t create middlewares. All middlewares will populate the <code>req.body</code> property with the parsed body, or an empty object (<code>{}</code>) if there was no body to parse (or an error was returned).
     </p>
   </article>
   <article>
-    <h3>Examples</h3>
+    <h3>
+      <code>bodyParser.urlencoded()</code>
+    </h3>
     <p>
-      This is a simple EJS templating example
-      <code>
-        app.get('/', function(req, res) {
-          console.log("working");
-          res.render("home.ejs");
-        });
-      </code>
-      The <code>home.ejs</code> file looks like: 
-      <code>
-        <h1>This is the home page!</h1>
-        <img src="http://petguide.com.vsassets.com/wp-content/uploads/2014/02/pomsky-puppy-cute.jpg" alt="">
-      </code>
+      Returns middleware that only parses <code>urlencoded</code> bodies. This parser accepts only UTF-8 encoding of the body and supports automatic inflation of <code>gzip</code> and <code>deflate</code> encodings.
+    </p>
+    <p>
+      A new <code>body</code> object containing the parsed data is populated on the <code>request</code> object after the middleware (i.e. <code>req.body</code>). This object will contain key-value pairs, where the value can be a string or array (when <code>extended</code> is <code>false</code>), or any type (when <code>extended</code> is <code>true</code>).
     </p>
   </article>
   <article>
-    <h3>Dynamic Example</h3>
+    <h3>Options</h3>
     <p>
-      In order to do a dynamic EJS templating example we must use <code><%= %></code> to embed our javascript. Below is a great example of how we use it.
+      The <code>urlencoded</code> function takes an option <code>options</code> object that may contain any of the following keys:
     </p>
     <p>
-      In the <code>index.js</code> file we would have a route that looks like:
-      <code>
-        app.get('/fallin/:thing', function(req, res) {
-          var thing = req.params.thing;
-          res.render("love.ejs", {thingVar: thing});
-        });
-      </code>
-      Then inside of <code>love.ejs</code> we would have something like: 
-      <code>
-        <h1>You fell in love with: <%= thingVar %> </h1>
-        <p>
-          This is the love.ejs file.
-        </p>
-      </code>
+      <h4>extended</h4>
+      The <code>extended</code> option allows to choose between parsing the URL-encoded data with the <code>querystring</code> library (when <code>false</code>) or the <code>qs</code> library (when <code>true</code>). The "extended" syntax allows for rich objects and arrays to be encoded into the URL-encoded format, allowing for a JSON-like experience with URL-encoded. 
+    </p>
+  </article>
+</section>
+
+
+<section>
+  <article>
+    <h3>classes</h3>
+    <p>
+     <code><div class="text-center"></div></code> Will make sure that the text in the div is centered.
     </p>
   </article>
 </section>
