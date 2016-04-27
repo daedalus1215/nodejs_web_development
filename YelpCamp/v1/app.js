@@ -1,6 +1,13 @@
 var express = require("express");
+var mongoClient = require('mongodb');
+
 var app = express();
 var bodyParser = require("body-parser");
+
+// Connect to the db
+mongoClient.connect
+
+
 
 app.use(bodyParser.urlencoded({ extended : true})) // make sure that we are using the body parser and setting extended option to true.
 
