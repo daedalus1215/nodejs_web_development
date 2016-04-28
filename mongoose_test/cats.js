@@ -30,6 +30,21 @@ var george = new Cat({
   }
 });*/
 
+// THis is a way creating a new one and saving it in the db without doing the long way above.
+Cat.create({
+  name: "Snow White",
+  age: 15,
+  temperament: "Bland"
+}, function(err, cats) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("All the cats");
+    console.log(cats);
+  }
+});
+
+
 // retrieve all cats from the DB and console.log each one
 Cat.find({}, function(err, cats) {
   if (err) {
