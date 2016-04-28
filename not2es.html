@@ -57,4 +57,13 @@
       </code>
     </p>
   </article>
+  <article>
+    <h3>Link to stylesheets</h3>
+    <p>
+      to link to a stylesheet that is in the public folder we would just use the stylesheets name and not the directory it is in. So for instance, you make a folder on the same level as <code>app.js</code> and it's called <code>public</code>, inside of <code>public</code> you create a file called <code>app.css</code>. That <code>app.css</code> when linked to by a <strong>EJS</strong> template, like say <code>posts.ejs</code>, we do not need to include the fact that our <code>app.css</code> is inside of our <code>public</code> folder. Instead, in <code>posts.ejs</code> we can just do a <code><link rel="stylesheet" href="app.css"></code>.
+    </p>
+    <p>
+      There is a caveat though, we do need to tell <code>app.js</code> that we want to serve the contents of <code>public</code> folder. We would just go to <code>app.js</code> and insert, somewhere amongst our routes, that we want to <code>use</code> an <code>express.static</code> method on our <code>public</code> folder, e.g. <code>app.use(express.static("public"));</code>.
+    </p>
+  </article>
 </section>
