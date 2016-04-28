@@ -12,6 +12,7 @@ var campgroundSchema = new mongoose.Schema({
   image: String
 });
 
+var Campground = mongoose.model("Campground", campgroundSchema); 
 
 app.use(bodyParser.urlencoded({ extended : true})) // make sure that we are using the body parser and setting extended option to true.
 
@@ -23,7 +24,7 @@ app.get("/", function(req, res) {
 
 
 /************************************************* beg - CAMPGROUNDS *******************************************************************************************************/
-var Campground = mongoose.model("Campground", campgroundSchema);
+
 
 Campground.create(
   { 
