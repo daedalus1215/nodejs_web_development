@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended : true})) // make sure that we are usin
 
 app.set("view engine", "ejs"); // Set the view engine to be ejs.
 
+//INDEX - Homepage.
 app.get("/", function(req, res) {
   res.render("landing");
 });
@@ -62,20 +63,20 @@ app.get("/", function(req, res) {
 //        console.log(camp);
 //      }
 //});
-Campground.create(
-   {
-    name: "Confuscious Camp", 
-    image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg",
-    description: "This is a huge granite hill, no bathrooms. No water. Beautiful granite!"
-   }
-  , function(err, camp) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("NEWLY CREATED CAMPGROUND: ");
-        console.log(camp);
-      }
-});
+//Campground.create(
+//   {
+//    name: "Confuscious Camp", 
+//    image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg",
+//    description: "This is a huge granite hill, no bathrooms. No water. Beautiful granite!"
+//   }
+//  , function(err, camp) {
+//      if (err) {
+//        console.log(err);
+//      } else {
+//        console.log("NEWLY CREATED CAMPGROUND: ");
+//        console.log(camp);
+//      }
+//});
 
 //INDEX - display all campgrounds
 app.get("/campgrounds", function(req, res) {
@@ -116,7 +117,7 @@ app.post("/campgrounds", function(req, res) {
 app.get("/campgrounds/:id", function(req, res) {
   //find the campground with provided ID
   //render show template with that campground.
-  res.send("This will be the show page one day!");
+  res.render("show");
 });
 
 
