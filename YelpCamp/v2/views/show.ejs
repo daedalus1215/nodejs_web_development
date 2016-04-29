@@ -9,6 +9,12 @@
       <p class="camp-description">
         <%= theCamp.description %>
       </p>
+      <form action="/campgrounds/<%= theCamp.id %>/edit" />
+        <button class="btn btn-warning">Edit</button>
+      </form>
+      <form action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
+        <button class="btn btn-danger">Delete</button>
+      </form>
     </div>
   </div>
 </div>

@@ -162,7 +162,19 @@ app.put('/campgrounds/:id', function(req, res) {
         res.render('show', {theCamp: updatedCampground});
       }
     })
+});
 
+//DELETE ROUTE
+app.delete('/campgrounds/:id', function(req, res) {
+  // Destroy campground
+  Campground.findByIdAndRemove(req.params.id, function(err) {
+    if (err) {
+      res.redirect("/campgrounds");
+    } else {
+      res.redirect("/campgrounds");
+    }
+  });
+  // Redirect
 });
 /************************************************* end - CAMPGROUNDS ****************************************************************/
 
