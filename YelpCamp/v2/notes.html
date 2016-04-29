@@ -1,0 +1,80 @@
+<section>
+  <article>
+    <h3>Working with post routes</h3>
+    <p>
+      In order to handle a post route we need to make sure that we use another package. When we are sending over the post with a form, one of our <code>app.js</code> routes will need to receive the post information, and in order to do that we need the <code>body-parser</code> package.
+      <code>npm install body-parser --save</code> perusual.
+    </p>
+    <p>
+      The <code>bodyParser</code> object exposes various factories t create middlewares. All middlewares will populate the <code>req.body</code> property with the parsed body, or an empty object (<code>{}</code>) if there was no body to parse (or an error was returned).
+    </p>
+  </article>
+  <article>
+    <h3>
+      <code>bodyParser.urlencoded()</code>
+    </h3>
+    <p>
+      Returns middleware that only parses <code>urlencoded</code> bodies. This parser accepts only UTF-8 encoding of the body and supports automatic inflation of <code>gzip</code> and <code>deflate</code> encodings.
+    </p>
+    <p>
+      A new <code>body</code> object containing the parsed data is populated on the <code>request</code> object after the middleware (i.e. <code>req.body</code>). This object will contain key-value pairs, where the value can be a string or array (when <code>extended</code> is <code>false</code>), or any type (when <code>extended</code> is <code>true</code>).
+    </p>
+  </article>
+  <article>
+    <h3>Options</h3>
+    <p>
+      The <code>urlencoded</code> function takes an option <code>options</code> object that may contain any of the following keys:
+    </p>
+    <p>
+      <h4>extended</h4>
+      The <code>extended</code> option allows to choose between parsing the URL-encoded data with the <code>querystring</code> library (when <code>false</code>) or the <code>qs</code> library (when <code>true</code>). The "extended" syntax allows for rich objects and arrays to be encoded into the URL-encoded format, allowing for a JSON-like experience with URL-encoded. 
+    </p>
+  </article>
+  <article>
+    <h3>Method-Override</h3>
+    <p>
+      It is a simple package that will allow us to do <strong>PUT</strong> requests with a <strong>POST</strong> request (from a form). If you ever use <strong>PUT</strong> in a form as the <strong>method</strong>'s value, it will - by default - translate to a <strong>GET</strong> request. If we tell <strong>Expressjs</strong> to use the <strong>method-override tech</strong> we can translate it to a <strong>POST</strong> request.
+    </p>
+    <p>
+      Example of how to use it with <strong>Expressjs</strong>. A normal example of a form doing a normal <strong>POST</strong> request:
+      <code>
+        <form action="/blogs/<%= blog.id %>" method="POST">
+          
+        </form>
+      </code>
+    </p>
+    <p>
+      Example of how to use <strong>method-override</strong> and make sure that we translate a <strong>POST</strong> to a <strong>PUT</strong> request.
+      <code>
+        <form action="/blogs/<%= blog.id %>?_method=PUT" method="POST">
+          
+        </form>
+      </code>
+    </p>
+    <p>
+      When you use <strong><code>?_method=PUT</code></strong> we are doing a normal <strong>POST</strong> request, but it has in the query string our <strong><code>?_method=PUT</code></strong>.
+    </p>
+    <p>
+      Similarly, if we wanted to do something like:
+      <code>
+        <form action="/blogs/<%= blog.id %>?_method=DELETE" method="POST">
+          
+        </form>
+      </code>
+      we would be effectively turning the <strong>POST</strong> into a <strong>DELETE</strong> request.
+    </p>
+    <p>
+      Don't forget to install the <strong>method-override</strong> package with the command: <code>npm install method-override --save</code>.
+    </p>
+    <p>
+      Also in our <code>app.js</code> file we want to make sure we do a require of our methodOverride package.
+      <code>methodOverride  = require('method-override')</code>
+      We then make sure that we tell <strong><code>methodOverride</code></strong> to look for the keyword <code>_method</code> as the variable that will store the value of our parameter. So it will ultimately look like this:
+      <code>
+        methodOverride  = require('method-override');
+        app.use(methodOverride('_method'));
+      </code>
+      Then use it in our form as described above.
+    </p>
+  </article>
+</section>
