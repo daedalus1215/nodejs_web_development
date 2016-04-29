@@ -119,9 +119,16 @@ app.post('/campgrounds', function(req, res) {
 
 //SHOW ROUTE - display info about one campground.
 app.get('/campgrounds/:id', function(req, res) {
-  //find the campground with provided ID
-  //render show template with that campground.
-  res.render('show');
+  // Find the campground with provided ID
+  Campground.findById(req.params.id, function(err, campground) {
+    if (err) {
+      console.log("ERROR: ");
+      console.log(err);
+    } else {
+      // Render the page and pass the campground object
+      res.render('show', {theCamp: campground});
+    }
+  });
 });
 
 //EDIT ROUTE - edit the campground
@@ -138,9 +145,9 @@ app.get('/campgrounds/:id/edit', function(req, res) {
 });
 
 //UPDATE ROUTE
-//app.put('/campgrounds/:id', function(req, res) {
-//  
-//});
+app.put('/campgrounds/:id', function(req, res) {
+  
+});
 /************************************************* end - CAMPGROUNDS ****************************************************************/
 
 

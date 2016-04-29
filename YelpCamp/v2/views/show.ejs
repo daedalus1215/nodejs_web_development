@@ -1,1 +1,12 @@
-This is the Show template.
+<% include partials/header.ejs %>
+<div class="container">
+  <div class="row">
+  <div class="mini-container" style="text-align: center; margin: 0 auto;">
+      <h1><%= theCamp.name %></h1>
+      <p>
+        <img src="<%= theCamp.image %>" alt="<%= theCamp.name %>">
+      </p>
+    </div>
+  </div>
+</div>
+<% include partials/footer.ejs %>
