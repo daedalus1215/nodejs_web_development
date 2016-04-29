@@ -146,7 +146,15 @@ app.get('/campgrounds/:id/edit', function(req, res) {
 
 //UPDATE ROUTE
 app.put('/campgrounds/:id', function(req, res) {
-  
+  // Find the campground with provided ID
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground) {
+      if (err) {
+        res.redirect("/campgrounds");
+      } else {
+        res.render('show', {theCamp: updatedCampground});
+      }
+    })
+
 });
 /************************************************* end - CAMPGROUNDS ****************************************************************/
 
