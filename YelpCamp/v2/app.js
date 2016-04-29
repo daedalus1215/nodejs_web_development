@@ -9,7 +9,8 @@ mongoose.connect("mongodb://localhost/yelp_camp"); // Must connect our ORM to th
 // Establish a Schema
 var campgroundSchema = new mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  description: String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema); 
@@ -23,14 +24,50 @@ app.get("/", function(req, res) {
 });
 
 
-/************************************************* beg - CAMPGROUNDS *******************************************************************************************************/
+/************************************************* beg - CAMPGROUNDS ******************************************************************/
 
 
+//Campground.create(
+//  { 
+//    name: "Augustus Camp", 
+//    image: "https://farm4.staticflickr.com/3795/10131087094_c1c0a1c859.jpg" 
+//  }
+//  , function(err, camp) {
+//      if (err) {
+//        console.log(err);
+//      } else {
+//        console.log("NEWLY CREATED CAMPGROUND: ");
+//        console.log(camp);
+//      }
+//});
+//
+//
+//Campground.create(
+//  { name: "Nietzsche Camp", image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg" }
+//  , function(err, camp) {
+//      if (err) {
+//        console.log(err);
+//      } else {
+//        console.log("NEWLY CREATED CAMPGROUND: ");
+//        console.log(camp);
+//      }
+//});
+//Campground.create(
+//   { name: "Confuscious Camp", image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg" }
+//  , function(err, camp) {
+//      if (err) {
+//        console.log(err);
+//      } else {
+//        console.log("NEWLY CREATED CAMPGROUND: ");
+//        console.log(camp);
+//      }
+//});
 Campground.create(
-  { 
-    name: "Augustus Camp", 
-    image: "https://farm4.staticflickr.com/3795/10131087094_c1c0a1c859.jpg" 
-  }
+   {
+    name: "Confuscious Camp", 
+    image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg",
+    description: "This is a huge granite hill, no bathrooms. No water. Beautiful granite!"
+   }
   , function(err, camp) {
       if (err) {
         console.log(err);
@@ -40,38 +77,7 @@ Campground.create(
       }
 });
 
-
-Campground.create(
-  { name: "Nietzsche Camp", image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg" }
-  , function(err, camp) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("NEWLY CREATED CAMPGROUND: ");
-        console.log(camp);
-      }
-});
-Campground.create(
-   { name: "Confuscious Camp", image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg" }
-  , function(err, camp) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("NEWLY CREATED CAMPGROUND: ");
-        console.log(camp);
-      }
-});
-Campground.create(
-   { name: "Confuscious Camp", image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg" }
-  , function(err, camp) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("NEWLY CREATED CAMPGROUND: ");
-        console.log(camp);
-      }
-});
-
+//INDEX - display all campgrounds
 app.get("/campgrounds", function(req, res) {
   // Get all campgrounds from db
   Campground.find({}, function(err, campgrounds) {
@@ -83,10 +89,12 @@ app.get("/campgrounds", function(req, res) {
   });
 });
 
+//NEW - show form to create new campground
 app.get("/campgrounds/new", function(req, res) {
   res.render("new")
 });
 
+//CREATE - add new campground to DB
 app.post("/campgrounds", function(req, res) {
   // Get data from form and add to campgrounds array.
   var name = req.body.name;
@@ -104,7 +112,15 @@ app.post("/campgrounds", function(req, res) {
   
 });
 
-/************************************************* end - CAMPGROUNDS *******************************************************************************************************/
+//SHOW - display info about one campground.
+app.get("/campgrounds/:id", function(req, res) {
+  //find the campground with provided ID
+  //render show template with that campground.
+  res.send("This will be the show page one day!");
+});
+
+
+/************************************************* end - CAMPGROUNDS ****************************************************************/
 
 
 app.listen(3000, function() {
