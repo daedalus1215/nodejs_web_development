@@ -1,15 +1,17 @@
-var express         = require('express'),
-    mongoClient     = require('mongodb'),
-    mongoose        = require('mongoose'),
-    methodOverride  = require('method-override'),
-    app             = express(),
-    path            = require('path'),
-    bodyParser      = require('body-parser');
+var express           = require('express'),
+    mongoClient       = require('mongodb'),
+    mongoose          = require('mongoose'),
+    methodOverride    = require('method-override'),
+    app               = express(),
+    path              = require('path'),
+    expressSanitizer  = require('express-sanitizer'),
+    bodyParser        = require('body-parser');
 
 
 // APP CONFIG
 mongoose.connect('mongodb://localhost/yelp_camp'); // Must connect our ORM to the db.
 app.use(bodyParser.urlencoded({extended : true})) // make sure that we are using the body parser and setting extended option to true.
+app.use(expressSanitizer());
 app.set('view engine', 'ejs'); // Set the view engine to be ejs.
 app.use(methodOverride('_method')); // Tell out app that whenever we get the request that has _method as a parameter, take whatever it is equal to and treat that request as a put request or as a delete request.
 app.use(express.static(path.join(__dirname, '/public')));
@@ -18,7 +20,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 var campgroundSchema = new mongoose.Schema({
   name: String,
   image: String,
-  description: String
+  description: String,
+  created: {type: Date, default: Date.now}
 });
 var Campground = mongoose.model('Campground', campgroundSchema); 
 
@@ -112,10 +115,17 @@ app.get('/campgrounds/new', function(req, res) {
 //CREATE ROUTE - add new campground to DB
 app.post('/campgrounds', function(req, res) {
   // Get data from form and add to campgrounds array.
-  var name = req.body.name;
-  var img = req.body.img;
-  var newCampground = {name: name, image: img};
+  var name = req.sanitize(req.body.campground.name); // sanitize
+  var img = req.sanitize(req.body.campground.img); // sanitize
+  var desc = req.sanitize(req.body.campground.description); // sanitize
   
+  var newCampground = 
+                      { 
+                        name: name, 
+                        image: img,
+                        description: desc
+                      };
+
   Campground.create(newCampground, function(err, newCamp) {
     if (err) {
       console.log(err);
