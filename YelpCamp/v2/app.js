@@ -3,6 +3,7 @@ var express         = require('express'),
     mongoose        = require('mongoose'),
     methodOverride  = require('method-override'),
     app             = express(),
+    path            = require('path'),
     bodyParser      = require('body-parser');
 
 
@@ -11,7 +12,7 @@ mongoose.connect('mongodb://localhost/yelp_camp'); // Must connect our ORM to th
 app.use(bodyParser.urlencoded({extended : true})) // make sure that we are using the body parser and setting extended option to true.
 app.set('view engine', 'ejs'); // Set the view engine to be ejs.
 app.use(methodOverride('_method')); // Tell out app that whenever we get the request that has _method as a parameter, take whatever it is equal to and treat that request as a put request or as a delete request.
-
+app.use(express.static(path.join(__dirname, '/public')));
 
 // MONGOOSE/MODEL CONFIG
 var campgroundSchema = new mongoose.Schema({
