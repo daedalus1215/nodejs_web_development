@@ -20,8 +20,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 var campgroundSchema = new mongoose.Schema({
   name: String,
   image: String,
-  description: String,
-  created: {type: Date, default: Date.now}
+  description: String
+
 });
 var Campground = mongoose.model('Campground', campgroundSchema); 
 
@@ -166,10 +166,11 @@ app.get('/campgrounds/:id/edit', function(req, res) {
 //UPDATE ROUTE
 app.put('/campgrounds/:id', function(req, res) {
   // Find the campground with provided ID
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground) {
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, {new:true}, function(err, updatedCampground) {
       if (err) {
         res.redirect("/campgrounds");
       } else {
+        console.log(updatedCampground);
         res.redirect('/campgrounds/' + req.params.id);
       }
     })

@@ -25,6 +25,14 @@
         <a href="/campgrounds/<%= campground.id %>"><img src="<%= campground.image %>" alt=""></a>
         <h4><%= campground.name %></h4> 
       </div>
+      <div class="content">
+        <p><%- campground.description.substring(0, 100) %>...</p>
+      </div>
+      <div class="extra">
+      <p>
+        <a class="btn btn-info float left" href="/campgrounds/<%= campground.id %>">Read More</a>
+      </p>
+      </div>
     </div>
     <% }); %>
   </div>

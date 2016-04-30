@@ -2,3 +2,10 @@
   display: inline;
 }
 
+a.float.left {
+  float: left;
+}
+
+a.float.right {
+  float: right;
+}
