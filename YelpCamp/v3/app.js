@@ -14,7 +14,7 @@ var Comment = require('./models/comment');
 
 
 
-seedDB();
+
 // APP CONFIG
 mongoose.connect('mongodb://localhost/yelp_camp'); // Must connect our ORM to the db.
 app.use(bodyParser.urlencoded({extended : true})) // make sure that we are using the body parser and setting extended option to true.
@@ -24,8 +24,8 @@ app.use(methodOverride('_method')); // Tell out app that whenever we get the req
 app.use(express.static(path.join(__dirname, '/public')));
 
 
-
-
+// Populate some stuff.
+seedDB();
 
 //INDEX - Homepage.
 app.get('/', function(req, res) {
