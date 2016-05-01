@@ -10,7 +10,7 @@ var express           = require('express'),
 
 // MONGOOSE/MODEL CONFIG
 var Campground = require('./models/campground');
-var Comment = require('./models/campground');
+var Comment = require('./models/comment');
 
 
 
