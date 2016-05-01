@@ -1,15 +1,24 @@
 {
-  "name": "associations",
+  "name": "embed",
   "version": "1.0.0",
   "description": "Working with associations",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "la",
   "license": "ISC",
   "dependencies": {
+    "mongo": "^0.1.0",
     "mongodb": "^2.1.18",
     "mongoose": "^4.4.14"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "na"
+  },
+  "keywords": [
+    "na"
+  ]
 }
