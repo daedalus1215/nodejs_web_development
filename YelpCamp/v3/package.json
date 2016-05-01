@@ -1,12 +1,12 @@
 {
-  "name": "v1",
+  "name": "yelp_camp",
   "version": "1.0.0",
   "description": "YelpCamp starting",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "la",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -17,5 +17,6 @@
     "mongodb": "^2.1.18",
     "mongoose": "^4.4.14",
     "path": "~0.12.7"
-  }
+  },
+  "devDependencies": {}
 }

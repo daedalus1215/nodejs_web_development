@@ -15,6 +15,12 @@
       <form  id="delete" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
         <button class="btn btn-danger">Delete</button>
       </form>
+      <!-- Comments for this Campground -->
+      <% theCamp.comments.forEach(function(comment) { %>
+        <p>
+          <strong><%= comment.author %></strong> - <%= comment.text %>
+        </p>
+      <% });%>
     </div>
   </div>
 </div>

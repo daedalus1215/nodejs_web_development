@@ -83,13 +83,14 @@ app.post('/campgrounds', function(req, res) {
 //SHOW ROUTE - display info about one campground.
 app.get('/campgrounds/:id', function(req, res) {
   // Find the campground with provided ID
-  Campground.findById(req.params.id, function(err, campground) {
+  Campground.findById(req.params.id).populate("comments").exec(function(err, foundCamp) {
     if (err) {
       console.log("ERROR: ");
       console.log(err);
     } else {
       // Render the page and pass the campground object
-      res.render('show', {theCamp: campground});
+      console.log(foundCamp);
+      res.render('show', {theCamp: foundCamp});
     }
   });
 });
