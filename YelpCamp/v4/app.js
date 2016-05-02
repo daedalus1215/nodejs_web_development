@@ -42,14 +42,14 @@ app.get('/campgrounds', function(req, res) {
     if (err) {
       console.log('ERROR: ' + err);
     } else {
-      res.render('campgrounds', {campgrounds: campgrounds});
+      res.render('campgrounds/campgrounds', {campgrounds: campgrounds});
     }
   });
 });
 
 //NEW ROUTE - show form to create new campground
 app.get('/campgrounds/new', function(req, res) {
-  res.render('new')
+  res.render('campgrounds/new')
 });
 
 //CREATE ROUTE - add new campground to DB
@@ -71,7 +71,7 @@ app.post('/campgrounds', function(req, res) {
       console.log(err);
     } else {
       // Redirect us back to campgrounds.
-      res.redirect('/campgrounds');
+      res.redirect('campgrounds/campgrounds');
     }
   });
   
@@ -87,7 +87,7 @@ app.get('/campgrounds/:id', function(req, res) {
     } else {
       // Render the page and pass the campground object
       console.log(foundCamp);
-      res.render('show', {theCamp: foundCamp});
+      res.render('campgrounds/show', {theCamp: foundCamp});
     }
   });
 });
@@ -99,7 +99,7 @@ app.get('/campgrounds/:id/edit', function(req, res) {
       console.log('Error with the campground retrieval');
       console.log(err);      
     } else {
-      res.render('edit', {campground: foundCampground});
+      res.render('campgrounds/edit', {campground: foundCampground});
     }
   });
 });
@@ -109,10 +109,10 @@ app.put('/campgrounds/:id', function(req, res) {
   // Find the campground with provided ID
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, {new:true}, function(err, updatedCampground) {
       if (err) {
-        res.redirect("/campgrounds");
+        res.redirect("campgrounds/campgrounds");
       } else {
-        console.log(updatedCampground);
-        res.redirect('/campgrounds/' + req.params.id);
+        console.log("UPDATED <br/>" + updatedCampground);
+        res.redirect('../campgrounds/' + req.params.id);
       }
     })
 });
@@ -122,9 +122,9 @@ app.delete('/campgrounds/:id', function(req, res) {
   // Destroy campground
   Campground.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
-      res.redirect("/campgrounds");
+      res.redirect("campgrounds/campgrounds");
     } else {
-      res.redirect("/campgrounds");
+      res.redirect("campgrounds/campgrounds");
     }
   });
   // Redirect
@@ -144,7 +144,7 @@ app.get('/comment', function(req, res) {
 // Two routes below are examples of "Nested Routes." \\
 //NEW ROUTE - Form to setup a new comment to be created.
 app.get('/campgrounds/:id/comments/new', function(req, res) {
-  
+  res.render("comments/new");
 });
 
 //CREATE ROUTE - Adds a new comment to the DB
