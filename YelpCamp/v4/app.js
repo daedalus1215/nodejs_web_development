@@ -16,7 +16,7 @@ var Comment = require('./models/comment');
 
 
 // APP CONFIG
-mongoose.connect('mongodb://localhost/yelp_camp'); // Must connect our ORM to the db.
+mongoose.connect('mongodb://localhost/yelp_camp_v4'); // Must connect our ORM to the db.
 app.use(bodyParser.urlencoded({extended : true})) // make sure that we are using the body parser and setting extended option to true.
 app.use(expressSanitizer());
 app.set('view engine', 'ejs'); // Set the view engine to be ejs.
@@ -131,6 +131,38 @@ app.delete('/campgrounds/:id', function(req, res) {
 });
 
 /************************************************* end - CAMPGROUNDS ****************************************************************/
+
+
+
+/************************************************* beg - COMMENTS ******************************************************************/
+
+//INDEX ROUTE - Display a list of comments.
+app.get('/comment', function(req, res) {
+  
+});
+
+// Two routes below are examples of "Nested Routes." \\
+//NEW ROUTE - Form to setup a new comment to be created.
+app.get('/campgrounds/:id/comments/new', function(req, res) {
+  
+});
+
+//CREATE ROUTE - Adds a new comment to the DB
+app.post('/campgrounds/:id/comments', function(req, res) {
+  
+});
+
+//SHOW ROUTE - Shows info about a particular comment.
+app.get('/comment/:id', function(req, res) {
+  
+});
+
+/************************************************* end - COMMENTS ******************************************************************/
+
+
+
+
+
 
 
 app.listen(3000, function() {
