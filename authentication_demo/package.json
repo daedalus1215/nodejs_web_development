@@ -1,0 +1,11 @@
+{
+  "name": "authenticate",
+  "version": "1.0.0",
+  "description": "Authentication demo",
+  "main": "app.js",
+  "scripts": {
+    "test": "run"
+  },
+  "author": "larry",
+  "license": "ISC"
+}
