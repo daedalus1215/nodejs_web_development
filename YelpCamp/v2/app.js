@@ -153,7 +153,7 @@ app.put('/campgrounds/:id', function(req, res) {
       } else {
         res.render('show', {theCamp: updatedCampground});
       }
-    })
+    });
 
 });
 /************************************************* end - CAMPGROUNDS ****************************************************************/
