@@ -59,32 +59,20 @@ app.post('/register', function(req, res) {
   // grab the info from the form
   var fUsername = req.body.newUser.username;
   var fPassword = req.body.newUser.password;
+  
   User.register(new User({username: fUsername}), fPassword, function(err, rUser) {
     if (err) {
       console.log("ERROR registering new user - " + err);
+      return res.render('register');
     } else {
       console.log('registered');
-      return res.render('register');
+      // log the user in, handle session and use serializeUser - we are declaring we are using the "local" strategy.
+      passport.authenticate("local")(req, res, function() {
+        res.redirect('/secret');
+      });
     }
-    // log the user in, handle session and use serializeUser - we are declaring we are using the "local" strategy.
-    passport.authenticate("local")(req, res, function() {
-      res.redirect('/secret');
-    });
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
