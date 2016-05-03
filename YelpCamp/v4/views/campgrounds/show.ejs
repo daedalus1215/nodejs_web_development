@@ -15,6 +15,9 @@
       <form  id="delete" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
         <button class="btn btn-danger">Delete</button>
       </form>
+      <p>
+        <a class="btn btn-success" href="/campgrounds/<%= theCamp._id %>/comments/new">Add new Comment</a>
+      </p>
       <!-- Comments for this Campground -->
       <% theCamp.comments.forEach(function(comment) { %>
         <p>

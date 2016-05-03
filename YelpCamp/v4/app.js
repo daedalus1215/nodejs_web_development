@@ -144,12 +144,44 @@ app.get('/comment', function(req, res) {
 // Two routes below are examples of "Nested Routes." \\
 //NEW ROUTE - Form to setup a new comment to be created.
 app.get('/campgrounds/:id/comments/new', function(req, res) {
-  res.render("comments/new");
+  Campground.findById(req.params.id, function(err, theCampground) {
+    if (err) {
+      console.log("ERROR finding campground with the id - " + err);
+      res.redirect('/campgrounds');
+    } else {
+      // we got back the right campground
+      res.render("comments/new", {campground: theCampground});
+    }
+  });
+  
 });
 
 //CREATE ROUTE - Adds a new comment to the DB
 app.post('/campgrounds/:id/comments', function(req, res) {
-  
+  // lookup campground using ID
+  Campground.findById(req.params.id, function(err, rCampground) {
+    if (err) { 
+      console.log("ERROR finding campground with the id - " + err); 
+      res.redirect("/campgrounds");
+    } else {
+      var comment = req.body.comment;
+      console.log(comment);
+      // we found a campground.  
+      Comment.create({author: comment.author, text: comment.text}, function(err, rComment) {
+        if (err) {
+          console.log("ERROR making comment - " + err);
+        } else {
+          rCampground.comments.push(rComment);
+          rCampground.save();
+          res.redirect('/campgrounds/' + req.params.id);
+        }
+      });
+    }
+    
+  })
+  // create new comment
+  // connect new comment to campground
+  // redirect to campground show page.
 });
 
 //SHOW ROUTE - Shows info about a particular comment.
