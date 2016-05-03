@@ -29,7 +29,8 @@ app.use(require('express-session')({
   saveUninitialized: false
 }));
 
-// These two methods are important on passport - they are responsible for reading the session, taking the data from the session encoded and decode it, then encode decoded data for re-transmission. 
+// These three methods are important on passport - they are responsible for reading the session, taking the data from the session encoded and decode it, then encode decoded data for re-transmission. 
+passport.use(new localStrategy(User.authenticate())); // created a new localstragey that is pulled from user.js, that allows us to use local strategy
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -47,8 +48,11 @@ app.get('/secret', function(req, res) {
 })
 
 
+//=============
 // Auth Routes
+//=============
 
+// Register Routes
 // show signup form
 app.get('/register', function(req, res) {
   res.render('register');
@@ -64,16 +68,29 @@ app.post('/register', function(req, res) {
     if (err) {
       console.log("ERROR registering new user - " + err);
       return res.render('register');
-    } else {
+    }
       console.log('registered');
       // log the user in, handle session and use serializeUser - we are declaring we are using the "local" strategy.
       passport.authenticate("local")(req, res, function() {
+        console.log(req.body);
         res.redirect('/secret');
       });
-    }
   });
 });
 
+
+// Login Routes
+// Display login form
+app.get('/login', function(req, res) {
+  res.render('login');
+});
+
+// Handle login form
+app.post('/login', 
+         passport.authenticate("local"),
+         function(req, res) {
+  res.redirect('/secret');
+});
 
 
 app.listen(3000, function() {
