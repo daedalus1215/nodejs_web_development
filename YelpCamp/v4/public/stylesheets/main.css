@@ -1,0 +1,10 @@
+.thumbnail {
+  padding: 0; /* images will now have no space inbetween the thumbnail border and the image. */
+}
+.thumbnail img {
+  width: 100%; /* images will now stretch the width. */
+}
+
+.thumbnail .caption-full {
+  padding: 9px;
+}

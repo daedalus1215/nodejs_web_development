@@ -29,11 +29,11 @@ var campgrounds =
     { name: "Confuscious Camp", image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg" },
     { name: "Confuscious Camp", image: "https://farm5.staticflickr.com/4016/4369518024_0f64300987.jpg" }
   ];
-
+//INDEX - display all campgrounds.
 app.get("/campgrounds", function(req, res) {
   res.render("campgrounds", {campgrounds, campgrounds});
 });
-
+//NEW - show form to create new campground
 app.get("/campgrounds/new", function(req, res) {
   res.render("new")
 });
