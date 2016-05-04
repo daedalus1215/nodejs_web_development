@@ -19,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+
 // These three are required when using passport.
 app.use(require('express-session')({
     // must pass in these three options to the require
@@ -64,26 +65,8 @@ app.get('/register', function (req, res) {
 });
 
 // handle user signup form.
-app.post('/register', function (req, res) {
-    'use strict';
-    // grab the info from the form
-    var fUsername = req.body.newUser.username,
-        fPassword = req.body.newUser.password;
-    console.log(fUsername);
-    console.log(fPassword);
-    User.register(new User({username: fUsername}), fPassword, function (err, rUser) {
-        if (err) {
-            console.log("ERROR registering new user - " + err);
-            return res.render('register');
-        }
-        console.log('registered');
-        console.log(rUser);
-        // log the user in, handle session and use serializeUser - we are declaring we are using the "local" strategy.
-        passport.authenticate("local")(req, res, function () {        
-            res.redirect('/secret');
-        });
-    });
-});
+app.post('/register',  passport.authenticate('local', {                 successRedirect: '/', 
+failureRedirect: '/login' }));
 
 
 // Login Routes
