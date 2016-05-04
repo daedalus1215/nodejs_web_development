@@ -30,28 +30,41 @@ router.get('/new', isLoggedIn, function(req, res) {
 
 //CREATE ROUTE - add new campground to DB
 router.post('/', isLoggedIn, function(req, res) {
-  console.log("CREATE THE NEW campground.");
-  console.log('campground OBJECT = ' + req.body.campground.name);
-  // Get data from form and add to campgrounds array.
-  var name = req.sanitize(req.body.campground.name); // sanitize
-  var img = req.sanitize(req.body.campground.img); // sanitize
-  var desc = req.sanitize(req.body.campground.description); // sanitize
-  
-  var newCampground = 
+    console.log("CREATE THE NEW campground.");
+    console.log('campground OBJECT = ' + req.body.campground.name);
+    
+    // Get data from form and add to campgrounds array.
+    var name = req.sanitize(req.body.campground.name); // sanitize
+    var img = req.sanitize(req.body.campground.img); // sanitize
+    var desc = req.sanitize(req.body.campground.description); // sanitize
+
+    // Get the user
+    var user = req.user;
+    // Make the author
+    var author = 
+        {
+            id: user._id,
+            username: user.username
+        }
+    // Declare and instantiate new campground
+    var newCampground = 
                       { 
                         name: name, 
                         image: img,
-                        description: desc
+                        description: desc,
+                        author: author
                       };
-
-  Campground.create(newCampground, function(err, newCamp) {
-    if (err) {
-      console.log("ERROR CREATING CAMPGROUND: -- " + err);
-    } else {
-      // Redirect us back to campgrounds.
-      res.redirect('/campgrounds');
-    }
-  });
+    
+    // Create the new campground
+    Campground.create(newCampground, function(err, newCamp) {
+        if (err) {
+          console.log("ERROR CREATING CAMPGROUND: -- " + err);
+        } else {
+          console.log("NEWLY CREATED CAMPGROUND ============ " + newCamp);
+          // Redirect us back to campgrounds.
+          res.redirect('/campgrounds');
+        }
+    });
   
 });
 
