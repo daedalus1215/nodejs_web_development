@@ -57,17 +57,16 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-
-
+// we want to make sure every route checks to see if we have a currentUser object. This way the navbar can handle this accordinly.
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user; // anything placed in res.locals is anything inside of our template
   next(); // we need to make sure we execute the next code, after the middleware.
 });
 
-
+// Use those routes.
 app.use(indexRoutes);
-app.use(campgroundRoutes);
-app.use(commentRoutes);
+app.use('/campgrounds', campgroundRoutes);
+app.use('/campgrounds/:id/comments', commentRoutes);
 
 
 

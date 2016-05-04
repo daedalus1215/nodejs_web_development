@@ -1,18 +1,13 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router({mergeParams: true}); // extra option object makes sure that we share parameters between our different route modules.
 var Campground = require('../models/campground');
 var Comment = require('../models/comment');
 
-/************************************************* beg - COMMENTS ******************************************************************/
 
-//INDEX ROUTE - Display a list of comments.
-router.get('/comment', function(req, res) {
-  
-});
 
-// Two routers below are examples of "Nested Routes." \\
-//NEW ROUTE - Form to setup a new comment to be created.
-router.get('/campgrounds/:id/comments/new', isLoggedIn, function(req, res) {
+
+//COMMENTS NEW
+router.get('/new', isLoggedIn, function(req, res) {
   Campground.findById(req.params.id, function(err, theCampground) {
     if (err) {
       console.log("ERROR finding campground with the id - " + err);
@@ -25,8 +20,8 @@ router.get('/campgrounds/:id/comments/new', isLoggedIn, function(req, res) {
   
 });
 
-//CREATE ROUTE - Adds a new comment to the DB
-router.post('/campgrounds/:id/comments', isLoggedIn, function(req, res) {
+//COMMENTS CREATE
+router.post('/', isLoggedIn, function(req, res) {
   // lookup campground using ID
   Campground.findById(req.params.id, function(err, rCampground) {
     if (err) { 
@@ -48,14 +43,6 @@ router.post('/campgrounds/:id/comments', isLoggedIn, function(req, res) {
     }
     
   })
-  // create new comment
-  // connect new comment to campground
-  // redirect to campground show page.
-});
-
-//SHOW ROUTE - Shows info about a particular comment.
-router.get('/comment/:id', function(req, res) {
-  
 });
 
 /************************************************* end - COMMENTS ******************************************************************/

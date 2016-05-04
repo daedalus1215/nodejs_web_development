@@ -2,12 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Campground = require('../models/campground');
 
-/************************************************* beg - CAMPGROUNDS ******************************************************************/
+
 
 //INDEX ROUTE - display all campgrounds
-router.get('/campgrounds', function(req, res) {
-  
-  
+router.get('/', function(req, res) {  
   // Get all campgrounds from db
   Campground.find({}, function(err, campgrounds) {
     if (err) {
@@ -19,12 +17,12 @@ router.get('/campgrounds', function(req, res) {
 });
 
 //NEW ROUTE - show form to create new campground
-router.get('/campgrounds/new', function(req, res) {
+router.get('/new', function(req, res) {
   res.render('campgrounds/new')
 });
 
 //CREATE ROUTE - add new campground to DB
-router.post('/campgrounds', function(req, res) {
+router.post('/', function(req, res) {
   // Get data from form and add to campgrounds array.
   var name = req.sanitize(req.body.campground.name); // sanitize
   var img = req.sanitize(req.body.campground.img); // sanitize
@@ -49,7 +47,7 @@ router.post('/campgrounds', function(req, res) {
 });
 
 //SHOW ROUTE - display info about one campground.
-router.get('/campgrounds/:id', function(req, res) {
+router.get('/:id', function(req, res) {
   // Find the campground with provided ID
   Campground.findById(req.params.id).populate("comments").exec(function(err, foundCamp) {
     if (err) {
@@ -64,7 +62,7 @@ router.get('/campgrounds/:id', function(req, res) {
 });
 
 //EDIT ROUTE - edit the campground
-router.get('/campgrounds/:id/edit', function(req, res) {
+router.get('/:id/edit', function(req, res) {
   Campground.findById(req.params.id, function(err, foundCampground) {
     if (err) {
       console.log('Error with the campground retrieval');
@@ -76,7 +74,7 @@ router.get('/campgrounds/:id/edit', function(req, res) {
 });
 
 //UPDATE ROUTE
-router.put('/campgrounds/:id', function(req, res) {
+router.put('/:id', function(req, res) {
   // Find the campground with provided ID
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, {new:true}, function(err, updatedCampground) {
       if (err) {
@@ -89,7 +87,7 @@ router.put('/campgrounds/:id', function(req, res) {
 });
 
 //DELETE ROUTE
-router.delete('/campgrounds/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
   // Destroy campground
   Campground.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
@@ -98,7 +96,6 @@ router.delete('/campgrounds/:id', function(req, res) {
       res.redirect("campgrounds/campgrounds");
     }
   });
-  // Redirect
 });
 
 module.exports = router;
