@@ -38,6 +38,8 @@ router.post('/', isLoggedIn, function(req, res) {
         if (err) {
           console.log("ERROR making comment - " + err);
         } else {
+          console.log("COMMENT WAS CREATED-------: " + rComment);
+          console.log("USER WAS USED-------: " + req.user);
           // add username and id to comment
           rComment.author.id = req.user._id;
           rComment.author.username = req.user.username;

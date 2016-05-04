@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 
 
 //NEW ROUTE - show form to create new campground
-router.get('/new', function(req, res) {
+router.get('/new', isLoggedIn, function(req, res) {
   res.render('campgrounds/new');
 });
 
@@ -29,7 +29,7 @@ router.get('/new', function(req, res) {
 
 
 //CREATE ROUTE - add new campground to DB
-router.post('/', function(req, res) {
+router.post('/', isLoggedIn, function(req, res) {
   console.log("CREATE THE NEW campground.");
   console.log('campground OBJECT = ' + req.body.campground.name);
   // Get data from form and add to campgrounds array.
@@ -77,7 +77,7 @@ router.get('/:id', function(req, res) {
 
 
 //EDIT ROUTE - edit the campground
-router.get('/:id/edit', function(req, res) {
+router.get('/:id/edit', isLoggedIn, function(req, res) {
   Campground.findById(req.params.id, function(err, foundCampground) {
     if (err) {
       console.log('Error with the campground retrieval');
@@ -92,7 +92,7 @@ router.get('/:id/edit', function(req, res) {
 
 
 //UPDATE ROUTE
-router.put('/:id', function(req, res) {
+router.put('/:id', isLoggedIn, function(req, res) {
   // Find the campground with provided ID
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, {new:true}, function(err, updatedCampground) {
       if (err) {
@@ -112,11 +112,22 @@ router.delete('/:id', function(req, res) {
   // Destroy campground
   Campground.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
-      res.redirect("campgrounds/campgrounds");
+      res.redirect("/campgrounds");
     } else {
-      res.redirect("campgrounds/campgrounds");
+      res.redirect("/campgrounds");
     }
   });
 });
+
+
+
+// Add middleware
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
 
 module.exports = router;
