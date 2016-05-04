@@ -246,9 +246,15 @@ app.post('/register', function(req, res) {
 app.get('/login', function(req, res) {
   res.render('login');
 })
+
 //CREATE handle login form.
-app.post('/login', function(req, res) {
-  res.send("LOGIN LOGIC HAPPENS HERE");
+// use our middleware to do login
+app.post('/login', passport.authenticate('local', 
+   { 
+    successRedirect: '/campgrounds', 
+    failureRedirect: '/login'
+   }), function(req, res) {
+  
 });
 /************************************************* end - AUTH ROUTES ******************************************************************/
 
