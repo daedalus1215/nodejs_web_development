@@ -9,6 +9,7 @@
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Sign Up</a></li>
        <% } else { %>
+         <li><a href="#">Signed in as <span class="nav-user"><%= currentUser.username %></span></a></li>
          <li><a href="/logout">Logout</a></li>
        <% } %>
         
