@@ -18,10 +18,14 @@ router.get('/', function(req, res) {
 });
 
 
+
+
 //NEW ROUTE - show form to create new campground
 router.get('/new', function(req, res) {
   res.render('campgrounds/new');
 });
+
+
 
 
 //CREATE ROUTE - add new campground to DB
@@ -70,6 +74,8 @@ router.get('/:id', function(req, res) {
 });
 
 
+
+
 //EDIT ROUTE - edit the campground
 router.get('/:id/edit', function(req, res) {
   Campground.findById(req.params.id, function(err, foundCampground) {
@@ -81,6 +87,8 @@ router.get('/:id/edit', function(req, res) {
     }
   });
 });
+
+
 
 
 //UPDATE ROUTE
@@ -95,6 +103,8 @@ router.put('/:id', function(req, res) {
       }
     })
 });
+
+
 
 
 //DELETE ROUTE

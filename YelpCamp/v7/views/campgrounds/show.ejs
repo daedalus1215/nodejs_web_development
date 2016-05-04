@@ -36,7 +36,9 @@
       <% theCamp.comments.forEach(function(comment) { %>
         <div class="row">
          <div class="col-md-12">
-          <span class="pull-left"><strong><%= comment.author %></strong></span>
+         <p>
+           <span class="pull-left"><strong><%= comment.author.username %></strong></span> 
+         </p>
            <span class="pull-right">10 days ago</span>
            <p class="pull-left">
              <%= comment.text %>

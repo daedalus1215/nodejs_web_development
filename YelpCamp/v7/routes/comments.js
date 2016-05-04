@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router({mergeParams: true}); // extra option object makes sure that we share parameters between our different route modules.
+var router = express.Router( { mergeParams: true } ); // extra option object makes sure that we share parameters between our different route modules.
 var Campground = require('../models/campground');
 var Comment = require('../models/comment');
 
@@ -20,6 +20,9 @@ router.get('/new', isLoggedIn, function(req, res) {
   
 });
 
+
+
+
 //COMMENTS CREATE
 router.post('/', isLoggedIn, function(req, res) {
   // lookup campground using ID
@@ -29,17 +32,22 @@ router.post('/', isLoggedIn, function(req, res) {
       res.redirect("/campgrounds");
     } else {
       var comment = req.body.comment;
-      console.log(comment);
+      //console.log(comment);
       // we found a campground.  
       Comment.create({author: comment.author, text: comment.text}, function(err, rComment) {
         if (err) {
           console.log("ERROR making comment - " + err);
         } else {
-          //add username and id to comment
-          //save comment
-          console.log('New comment\'s username will be: ' + req.user.username);
+          // add username and id to comment
+          rComment.author.id = req.user._id;
+          rComment.author.username = req.user.username;
+          // save comment
+          rComment.save();
+          // update campground with new comment
           rCampground.comments.push(rComment);
+          // save campground
           rCampground.save();
+          // redirect
           res.redirect('/campgrounds/' + req.params.id);
         }
       });
@@ -48,7 +56,8 @@ router.post('/', isLoggedIn, function(req, res) {
   })
 });
 
-/************************************************* end - COMMENTS ******************************************************************/
+
+
 
 // Add middleware
 function isLoggedIn(req, res, next) {
@@ -57,5 +66,8 @@ function isLoggedIn(req, res, next) {
   }
   res.redirect('/login');
 }
+
+
+
 
 module.exports = router;
