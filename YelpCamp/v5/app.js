@@ -53,6 +53,13 @@ passport.deserializeUser(User.deserializeUser());
 
 
 
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user; // anything placed in res.locals is anything inside of our template
+  next(); // we need to make sure we execute the next code, after the middleware.
+});
+
+
+
 
 //INDEX - Homepage.
 app.get('/', function(req, res) {
@@ -64,6 +71,8 @@ app.get('/', function(req, res) {
 
 //INDEX ROUTE - display all campgrounds
 app.get('/campgrounds', function(req, res) {
+  
+  
   // Get all campgrounds from db
   Campground.find({}, function(err, campgrounds) {
     if (err) {
@@ -184,7 +193,7 @@ app.get('/campgrounds/:id/comments/new', isLoggedIn, function(req, res) {
 });
 
 //CREATE ROUTE - Adds a new comment to the DB
-app.post('/campgrounds/:id/comments', function(req, res) {
+app.post('/campgrounds/:id/comments', isLoggedIn, function(req, res) {
   // lookup campground using ID
   Campground.findById(req.params.id, function(err, rCampground) {
     if (err) { 
