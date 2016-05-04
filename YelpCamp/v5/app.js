@@ -221,12 +221,12 @@ app.get('/comment/:id', function(req, res) {
 
 /************************************************* beg - AUTH ROUTES ******************************************************************/
 
-// Show register form
+//NEW Show register form
 app.get('/register', function(req, res) {
   res.render('register');
 });
 
-// Handle register logic
+//CREATE Handle register logic
 app.post('/register', function(req, res) {
   var newUser = new User({username: req.body.username});
   
@@ -242,7 +242,14 @@ app.post('/register', function(req, res) {
   });
 });
 
-
+//New Show login form
+app.get('/login', function(req, res) {
+  res.render('login');
+})
+//CREATE handle login form.
+app.post('/login', function(req, res) {
+  res.send("LOGIN LOGIC HAPPENS HERE");
+});
 /************************************************* end - AUTH ROUTES ******************************************************************/
 
 
