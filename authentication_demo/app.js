@@ -2,9 +2,9 @@ var express               = require('express'),
     mongoose              = require('mongoose'),
     passport              = require('passport'),
     bodyParser            = require('body-parser'),
-    localStrategy         = require('passport-local'),
-    passportLocalMongoose = require('passport-local-mongoose')
-    User                  = require('./models/user');
+    User                  = require('./models/user'),
+    LocalStrategy         = require('passport-local'),
+    passportLocalMongoose = require('passport-local-mongoose');
 
 
 // Connect to the db.
@@ -18,19 +18,21 @@ app.set('view engine', 'ejs');
 // Make sure we use bodyParser when handling a form.
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(passport.initialize()); // tell app to use passport
-app.use(passport.session()); // tell app to setup session
 
 // These three are required when using passport.
 app.use(require('express-session')({
-  // must pass in these three options to the require
-  secret: "Ella is the best", // this is used to encode and decode the session
-  resave: false,
-  saveUninitialized: false
+    // must pass in these three options to the require
+    secret: "Ella is the best", // this is used to encode and decode the session
+    resave: false,
+    saveUninitialized: false
 }));
+app.use(passport.initialize()); // tell app to use passport
+app.use(passport.session()); // tell app to setup session
+
+
 
 // These three methods are important on passport - they are responsible for reading the session, taking the data from the session encoded and decode it, then encode decoded data for re-transmission. 
-passport.use(new localStrategy(User.authenticate())); // created a new localstragey that is pulled from user.js, that allows us to use local strategy
+passport.use(new LocalStrategy(User.authenticate())); // created a new localstragey that is pulled from user.js, that allows us to use local strategy
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -39,13 +41,15 @@ passport.deserializeUser(User.deserializeUser());
 // ROUTES
 //==========================
 
-app.get('/', function(req, res) {
-  res.render('home');
+app.get('/', function (req, res) {
+    'use strict';
+    res.render('home');
 });
 
-app.get('/secret', function(req, res) {
-  res.render('secret');
-})
+app.get('/secret', function (req, res) {
+    'use strict';
+    res.render('secret');
+});
 
 
 //=============
@@ -54,45 +58,52 @@ app.get('/secret', function(req, res) {
 
 // Register Routes
 // show signup form
-app.get('/register', function(req, res) {
-  res.render('register');
+app.get('/register', function (req, res) {
+    'use strict';
+    res.render('register');
 });
 
 // handle user signup form.
-app.post('/register', function(req, res) {
-  // grab the info from the form
-  var fUsername = req.body.newUser.username;
-  var fPassword = req.body.newUser.password;
-  
-  User.register(new User({username: fUsername}), fPassword, function(err, rUser) {
-    if (err) {
-      console.log("ERROR registering new user - " + err);
-      return res.render('register');
-    }
-      console.log('registered');
-      // log the user in, handle session and use serializeUser - we are declaring we are using the "local" strategy.
-      passport.authenticate("local")(req, res, function() {
-        console.log(req.body);
-        res.redirect('/secret');
-      });
-  });
+app.post('/register', function (req, res) {
+    'use strict';
+    // grab the info from the form
+    var fUsername = req.body.newUser.username,
+        fPassword = req.body.newUser.password;
+    console.log(fUsername);
+    console.log(fPassword);
+    User.register(new User({username: fUsername}), fPassword, function (err, rUser) {
+        if (err) {
+            console.log("ERROR registering new user - " + err);
+            return res.render('register');
+        }
+        console.log('registered');
+        console.log(rUser);
+        // log the user in, handle session and use serializeUser - we are declaring we are using the "local" strategy.
+        passport.authenticate("local")(req, res, function () {        
+            res.redirect('/secret');
+        });
+    });
 });
 
 
 // Login Routes
 // Display login form
-app.get('/login', function(req, res) {
-  res.render('login');
+app.get('/login', function (req, res) {
+    'use strict';
+    res.render('login');
 });
 
 // Handle login form
-app.post('/login', 
+app.post('/login',
          passport.authenticate("local"),
-         function(req, res) {
-  res.redirect('/secret');
-});
+         function (req, res) {
+        'use strict';
+        res.redirect('/secret');
+    }
+    );
 
 
-app.listen(3000, function() {
-  console.log("Authentication has begun");
+app.listen(3000, function () {
+    'use strict';
+    console.log("Authentication has begun");
 });
