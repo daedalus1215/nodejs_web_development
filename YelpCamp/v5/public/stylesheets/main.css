@@ -8,3 +8,7 @@
 .thumbnail .caption-full {
   padding: 9px;
 }
+
+form.form-center {
+  width: 30%; margin: 25px auto;
+}

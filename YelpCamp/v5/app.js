@@ -170,7 +170,7 @@ app.get('/comment', function(req, res) {
 
 // Two routes below are examples of "Nested Routes." \\
 //NEW ROUTE - Form to setup a new comment to be created.
-app.get('/campgrounds/:id/comments/new', function(req, res) {
+app.get('/campgrounds/:id/comments/new', isLoggedIn, function(req, res) {
   Campground.findById(req.params.id, function(err, theCampground) {
     if (err) {
       console.log("ERROR finding campground with the id - " + err);
@@ -221,6 +221,11 @@ app.get('/comment/:id', function(req, res) {
 
 /************************************************* beg - AUTH ROUTES ******************************************************************/
 
+
+/*==========*/
+/* Register */
+/*==========*/
+
 //NEW Show register form
 app.get('/register', function(req, res) {
   res.render('register');
@@ -242,12 +247,17 @@ app.post('/register', function(req, res) {
   });
 });
 
-//New Show login form
+
+/*==========*/
+/* login */
+/*==========*/
+
+//NEW Show login form
 app.get('/login', function(req, res) {
   res.render('login');
 })
 
-//CREATE handle login form.
+// handle login form.
 // use our middleware to do login
 app.post('/login', passport.authenticate('local', 
    { 
@@ -256,10 +266,27 @@ app.post('/login', passport.authenticate('local',
    }), function(req, res) {
   
 });
+
+
+/*==========*/
+/* logout */
+/*==========*/
+
+//INDEX logout route
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/campgrounds');
+});
 /************************************************* end - AUTH ROUTES ******************************************************************/
 
 
-
+// Add middleware
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
 
 app.listen(3000, function() {
   console.log('YelpCamp Server has started');
