@@ -1,28 +1,33 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router({mergeParams: true});
 var Campground = require('../models/campground');
 
 
 
 //INDEX ROUTE - display all campgrounds
 router.get('/', function(req, res) {  
+  console.log('SHOW CAMPGROUNDS');
   // Get all campgrounds from db
   Campground.find({}, function(err, campgrounds) {
     if (err) {
-      console.log('ERROR: ' + err);
+      console.log('ERROR+: ' + err);
     } else {
       res.render('campgrounds/campgrounds', {campgrounds: campgrounds});
     }
   });
 });
 
+
 //NEW ROUTE - show form to create new campground
 router.get('/new', function(req, res) {
-  res.render('campgrounds/new')
+  res.render('campgrounds/new');
 });
+
 
 //CREATE ROUTE - add new campground to DB
 router.post('/', function(req, res) {
+  console.log("CREATE THE NEW campground.");
+  console.log('campground OBJECT = ' + req.body.campground.name);
   // Get data from form and add to campgrounds array.
   var name = req.sanitize(req.body.campground.name); // sanitize
   var img = req.sanitize(req.body.campground.img); // sanitize
@@ -37,21 +42,24 @@ router.post('/', function(req, res) {
 
   Campground.create(newCampground, function(err, newCamp) {
     if (err) {
-      console.log(err);
+      console.log("ERROR CREATING CAMPGROUND: -- " + err);
     } else {
       // Redirect us back to campgrounds.
-      res.redirect('campgrounds/campgrounds');
+      res.redirect('/campgrounds');
     }
   });
   
 });
 
+
 //SHOW ROUTE - display info about one campground.
 router.get('/:id', function(req, res) {
+  console.log('SHOW A PARTICULAR CAMPGROUNDS, with an ID of = ' + req.params.id);
+  console.log(req.params);
   // Find the campground with provided ID
   Campground.findById(req.params.id).populate("comments").exec(function(err, foundCamp) {
     if (err) {
-      console.log("ERROR: ");
+      console.log("ERROR-: ");
       console.log(err);
     } else {
       // Render the page and pass the campground object
@@ -60,6 +68,7 @@ router.get('/:id', function(req, res) {
     }
   });
 });
+
 
 //EDIT ROUTE - edit the campground
 router.get('/:id/edit', function(req, res) {
@@ -73,6 +82,7 @@ router.get('/:id/edit', function(req, res) {
   });
 });
 
+
 //UPDATE ROUTE
 router.put('/:id', function(req, res) {
   // Find the campground with provided ID
@@ -85,6 +95,7 @@ router.put('/:id', function(req, res) {
       }
     })
 });
+
 
 //DELETE ROUTE
 router.delete('/:id', function(req, res) {

@@ -35,6 +35,9 @@ router.post('/', isLoggedIn, function(req, res) {
         if (err) {
           console.log("ERROR making comment - " + err);
         } else {
+          //add username and id to comment
+          //save comment
+          console.log('New comment\'s username will be: ' + req.user.username);
           rCampground.comments.push(rComment);
           rCampground.save();
           res.redirect('/campgrounds/' + req.params.id);

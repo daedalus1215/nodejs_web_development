@@ -37,8 +37,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 
 
-// Populate some stuff.
-seedDB();
+ //seedDB(); // Populate some stuff. 
 
 
 
