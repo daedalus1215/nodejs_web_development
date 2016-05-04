@@ -10,12 +10,14 @@ var express           = require('express'),
     bodyParser        = require('body-parser');
    
 
+
 // MONGOOSE/MODEL CONFIG
 var Campground = require('./models/campground');
 var Comment    = require('./models/comment');
 var User       = require('./models/user');
 
 var seedDB     = require('./seeds');
+
 
 
 
@@ -28,8 +30,29 @@ app.use(methodOverride('_method')); // Tell out app that whenever we get the req
 app.use(express.static(path.join(__dirname, '/public')));
 
 
+
 // Populate some stuff.
 seedDB();
+
+
+
+
+// PASSPORT CONFIGURATION
+app.use(require('express-session')({
+  secret: 'node code',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+
 
 //INDEX - Homepage.
 app.get('/', function(req, res) {
@@ -196,7 +219,31 @@ app.get('/comment/:id', function(req, res) {
 /************************************************* end - COMMENTS ******************************************************************/
 
 
+/************************************************* beg - AUTH ROUTES ******************************************************************/
 
+// Show register form
+app.get('/register', function(req, res) {
+  res.render('register');
+});
+
+// Handle register logic
+app.post('/register', function(req, res) {
+  var newUser = new User({username: req.body.username});
+  
+  User.register(newUser, req.body.password, function(err, rUser) {
+    if (err) {
+      console.log("ERROR!!! " + err);
+      return res.render("register");
+    }
+    
+    passport.authenticate('local')(req, res, function() {
+      res.redirect('/campgrounds');
+    });    
+  });
+});
+
+
+/************************************************* end - AUTH ROUTES ******************************************************************/
 
 
 
