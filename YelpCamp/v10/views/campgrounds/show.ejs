@@ -2,30 +2,31 @@
 <div class="container">
   <div class="row">
   
-  <div class="col-md-3">
-    <p>YelpCamp</p>
-    <div class="list-group">
-      <li class='list-group-item active'>Info 1</li>
-      <li class='list-group-item'>Info 2</li>
-      <li class='list-group-item'>Info 3</li>
-    </div>
-  </div>
-  
-  
-  
-  
-  <div class="col-md-9 mini-container" style="text-align: center; margin: 0 auto;">
-      <div class='thumbnail' style="padding: 0;">
-       <img src="<%= theCamp.image %>" alt="<%= theCamp.name %>" style="width: 100%;">
-       <div class="caption-full" style="padding: 9px;">
-         <h4 class="pull-left"><a href=""><%= theCamp.name %></a></h4>         
-         <h4 class="pull-right">$9.00/night</h4>                
-         <p><%= theCamp.description %></p>
-         <h4><a href=""><em>Submitted by: <%= theCamp.author.username %></em></a></h4>
-       </div>
-       
+    <div class="col-md-3">
+      <p>YelpCamp</p>
+      <div class="list-group">
+        <li class='list-group-item active'>Info 1</li>
+        <li class='list-group-item'>Info 2</li>
+        <li class='list-group-item'>Info 3</li>
       </div>
-      
+    </div>
+
+
+
+
+    <div class="col-md-9" style="text-align: center; margin: 0 auto;">
+
+      <div class='thumbnail' style="padding: 0;">
+       <img class="img-responsive" src="<%= theCamp.image %>" alt="<%= theCamp.name %>" style="width: 100%;">
+       <div class="caption-full" style="padding: 9px;">
+         <h4 class="pull-right">$9.00/night</h4>                
+         <h4><a class="camp-name" href=""><%= theCamp.name %></a></h4>         
+         <p class="campground-description"><%= theCamp.description %></p>
+         <p><a href=""><em>Submitted by: <%= theCamp.author.username %></em></a></p>
+         <p><a id="edit-button" class="btn btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a></p>
+       </div>        
+      </div>
+
       <div class="well">
        <div class="text-right">
         <a class="btn btn-success" href="/campgrounds/<%= theCamp._id %>/comments/new">Add new Comment</a>
@@ -45,25 +46,13 @@
          </div>
         </div>
       <% });%>
-      </div>
-       
-        <form id="delete" action="/campgrounds/<%= theCamp.id %>/edit" />
-          <button class="btn btn-warning">Edit</button>
-        </form>
-        <form  id="delete" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
-          <button class="btn btn-danger">Delete</button>
-        </form>
-
-        
-        
-    
-  </div>
-</div>
-  
-  
-
+      </div>     
       
-
-  
+      <form  id="delete" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger">Delete</button>
+    </form>
+    
+    </div>
+  </div>
 </div>
 <% include ../partials/footer.ejs %>

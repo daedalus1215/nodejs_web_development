@@ -16,3 +16,25 @@
 form.form-center {
   width: 30%; margin: 25px auto;
 }
+
+
+/*==========*/
+/* Show campgrounds page */
+/*==========*/
+#edit-button {
+  clear: both;
+  float: left;
+  margin-bottom: 20px;
+}
+.camp-name {
+  float: left;
+}
+.camp-name:after {
+  clear:both;
+}
+.campground-description {
+  display: block;
+  width: 100%;
+  clear:both;
+  text-align: left;
+}
