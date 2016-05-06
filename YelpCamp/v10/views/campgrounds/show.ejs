@@ -22,8 +22,14 @@
          <h4 class="pull-right">$9.00/night</h4>                
          <h4><a class="camp-name" href=""><%= theCamp.name %></a></h4>         
          <p class="campground-description"><%= theCamp.description %></p>
-         <p><a href=""><em>Submitted by: <%= theCamp.author.username %></em></a></p>
-         <p><a id="edit-button" class="btn btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a></p>
+         <p>
+           <a id="edit-button" class="btn btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a>
+           <form  id="delete" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">Delete</button>
+           </form>
+           <a href=""><em>Submitted by: <%= theCamp.author.username %></em></a>
+         </p>
+         <p></p>
        </div>        
       </div>
 
@@ -48,9 +54,7 @@
       <% });%>
       </div>     
       
-      <form  id="delete" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
-          <button class="btn btn-danger">Delete</button>
-    </form>
+      
     
     </div>
   </div>
