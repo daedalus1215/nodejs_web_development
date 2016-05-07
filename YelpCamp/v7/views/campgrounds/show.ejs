@@ -23,7 +23,7 @@
          <p><%= theCamp.description %></p>
          <h4><a href=""><em>Submitted by: <%= theCamp.author.username %></em></a></h4>
        </div>
-       
+       <a class="btn btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a>
       </div>
       
       <div class="well">
@@ -45,18 +45,10 @@
          </div>
         </div>
       <% });%>
-      </div>
-       
-        <form id="delete" action="/campgrounds/<%= theCamp.id %>/edit" />
-          <button class="btn btn-warning">Edit</button>
-        </form>
+      </div>               
         <form  id="delete" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
           <button class="btn btn-danger">Delete</button>
         </form>
-
-        
-        
-    
   </div>
 </div>
   

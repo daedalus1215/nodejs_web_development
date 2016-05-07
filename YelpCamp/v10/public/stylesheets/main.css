@@ -21,6 +21,10 @@ form.form-center {
 /*==========*/
 /* Show campgrounds page */
 /*==========*/
+.img-responsive {
+  width: 100%;
+}
+
 .camp-name {
   float: left;
 }
@@ -32,25 +36,16 @@ form.form-center {
   text-align: left;
 }
 
-.author-buttons {
-  float: left;
-  clear: both;
-}
+
 .camp-author {
   display: inline-block;
   width: 100%;
-  text-align: left;
-  
+  text-align: left; 
 }
-.show-buttons {
-  float: left;
-  clear: both;
-}
+
 #edit-button { 
   display: inline;
-  float: left;
 }
 #delete-form {
-  display: inline;
-  float: left;
+  display: inline; 
 }

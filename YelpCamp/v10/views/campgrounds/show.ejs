@@ -14,24 +14,19 @@
 
 
 
-    <div class="col-md-9" style="text-align: center; margin: 0 auto;">
+    <div class="col-md-9">
 
-      <div class='thumbnail' style="padding: 0;">
-       <img class="img-responsive" src="<%= theCamp.image %>" alt="<%= theCamp.name %>" style="width: 100%;">
-       <div class="caption-full" style="padding: 9px;">
+      <div class='thumbnail'>
+       <img class="img-responsive" src="<%= theCamp.image %>" alt="<%= theCamp.name %>">
+       <div class="caption-full">
          <h4 class="pull-right">$9.00/night</h4>                
          <h4><a class="camp-name" href=""><%= theCamp.name %></a></h4>         
          <p class="campground-description"><%= theCamp.description %></p>
-         <p class="author-buttons">
            <a class="camp-author" href=""><em>Submitted by: <%= theCamp.author.username %></em></a>
-           <p class="show-buttons">
-             <a id="edit-button" class="btn btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a>
+           <a id="edit-button" class="btn btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a>
              <form id="delete-form" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
-              <button class="btn btn-danger">Delete</button>
+               <button class="btn btn-danger">Delete</button>
              </form>
-           </p>
-         </p>
-         <p></p>
        </div>        
       </div>
 

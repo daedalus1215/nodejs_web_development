@@ -163,6 +163,7 @@ app.get('/campgrounds/:id/edit', function(req, res) {
   });
 });
 
+
 //UPDATE ROUTE
 app.put('/campgrounds/:id', function(req, res) {
   // Find the campground with provided ID
@@ -173,12 +174,10 @@ app.put('/campgrounds/:id', function(req, res) {
         console.log(updatedCampground);
         res.redirect('/campgrounds/' + req.params.id);
       }
-<<<<<<< HEAD
     });
-=======
-    })
+  })
 });
->>>>>>> 39372e40bbf2ba524ab4da0c71b01003b3dfdee3
+
 
 //DELETE ROUTE
 app.delete('/campgrounds/:id', function(req, res) {
@@ -192,6 +191,8 @@ app.delete('/campgrounds/:id', function(req, res) {
   });
   // Redirect
 });
+
+
 /************************************************* end - CAMPGROUNDS ****************************************************************/
 
 
