@@ -91,14 +91,26 @@ router.get('/:id', function(req, res) {
 
 //EDIT ROUTE - edit the campground
 router.get('/:id/edit', isLoggedIn, function(req, res) {
-  Campground.findById(req.params.id, function(err, foundCampground) {
-    if (err) {
-      console.log('Error with the campground retrieval');
-      console.log(err);      
-    } else {
-      res.render('campgrounds/edit', {campground: foundCampground});
-    }
-  });
+  // Is user logged in
+/*  if (req.isAuthenticated()) {
+    
+  } else {
+    console.log()
+  }*/
+    // does user own campground
+      // if so
+        Campground.findById(req.params.id, function(err, foundCampground) {
+          if (err) {
+            console.log('Error with the campground retrieval');
+            console.log(err);      
+          } else {
+
+            res.render('campgrounds/edit', {campground: foundCampground});
+          }
+        });
+  // if not, redirect
+  
+  
 });
 
 

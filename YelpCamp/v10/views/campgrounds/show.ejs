@@ -23,9 +23,9 @@
          <h4><a class="camp-name" href=""><%= theCamp.name %></a></h4>         
          <p class="campground-description"><%= theCamp.description %></p>
            <a class="camp-author" href=""><em>Submitted by: <%= theCamp.author.username %></em></a>
-           <a id="edit-button" class="btn btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a>
+           <a id="edit-button" class="btn btn-xs btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a>
              <form id="delete-form" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
-               <button class="btn btn-danger">Delete</button>
+               <button class="btn btn-xs btn-danger">Delete</button>
              </form>
        </div>        
       </div>
