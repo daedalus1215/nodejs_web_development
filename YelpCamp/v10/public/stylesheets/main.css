@@ -38,3 +38,7 @@ form.form-center {
   clear:both;
   text-align: left;
 }
+
+#delete-form {
+  display:inline;
+}
