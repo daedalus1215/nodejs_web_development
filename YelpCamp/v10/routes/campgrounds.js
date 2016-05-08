@@ -134,7 +134,11 @@ router.delete('/:id', checkCampgroundOwnership, function(req, res) {
 
 
 
-// Add middleware
+//=================\\
+//    MIDDLEWARE
+//=================\\
+
+// Make sure the user is loggede in.
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -143,7 +147,7 @@ function isLoggedIn(req, res, next) {
 }
 
 
-// Add middleware
+// Make sure the user owns this particular campground.
 function checkCampgroundOwnership(req, res, next) {
   // is the user logged in
   if (req.isAuthenticated()) {

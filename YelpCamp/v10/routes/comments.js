@@ -60,7 +60,7 @@ router.post('/', isLoggedIn, function(req, res) {
 
 
 //EDIT
-router.get("/:comment_id/edit", function(req, res) {
+router.get("/:comment_id/edit", checkCommentOwnership, function(req, res) {
   Comment.findById(req.params.comment_id, function(err, foundComment) {
     if (err) {
       res.redirect('back');
@@ -75,7 +75,7 @@ router.get("/:comment_id/edit", function(req, res) {
 
 
 //UPDATE
-router.put('/:comment_id', function(req, res) {
+router.put('/:comment_id', checkCommentOwnership, function(req, res) {
   // this was giving me trouble when comment[text] was not set for the value I was not saving the object right
   // with req.body.comment, for some wierd reason it was not populating a full comment.
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
@@ -93,7 +93,7 @@ router.put('/:comment_id', function(req, res) {
 
 
 //DESTROY
-router.delete('/:comment_id', function(req, res) {
+router.delete('/:comment_id', checkCommentOwnership, function(req, res) {
   Comment.findByIdAndRemove(req.params.comment_id, function(err, destroyedComment) {
     if (err) {
       console.log('error, deleteing the comment');
@@ -104,20 +104,49 @@ router.delete('/:comment_id', function(req, res) {
     }
   });
 });
+  
 
 
 
 
 
+//=================\\
+//    MIDDLEWARE
+//=================\\
 
-
-
-// Add middleware
+// Make sure the user is loggede in.
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   res.redirect('/login');
+}
+
+
+// Make sure the user owns this particular comment.
+function checkCommentOwnership(req, res, next) {
+  // is the user logged in
+  if (req.isAuthenticated()) {
+    // grab thwe campground with the specific id
+    Comment.findById(req.params.comment_id, function(err, foundComment) {
+      if (err) {
+        console.log('Error with the campground retrieval');
+        console.log(err);    
+        res.redirect("back");
+      } else {
+        // Does user own comment
+        if (foundComment.author.id.equals(req.user._id)) {
+          // run the rest of the route's execution context.
+          next();        
+        } else {
+          // if not, redirect
+          res.redirect("back");
+        }
+      }
+    });    
+  } else {
+    res.redirect("back");
+  }
 }
 
 
