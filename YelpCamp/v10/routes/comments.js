@@ -38,8 +38,6 @@ router.post('/', isLoggedIn, function(req, res) {
         if (err) {
           console.log("ERROR making comment - " + err);
         } else {
-          console.log("COMMENT WAS CREATED-------: " + rComment);
-          console.log("USER WAS USED-------: " + req.user);
           // add username and id to comment
           rComment.author.id = req.user._id;
           rComment.author.username = req.user.username;
@@ -58,8 +56,32 @@ router.post('/', isLoggedIn, function(req, res) {
   })
 });
 
+//EDIT
+router.get("/:comment_id/edit", function(req, res) {
+  Comment.findById(req.params.comment_id, function(err, foundComment) {
+    if (err) {
+      res.redirect('back');
+    } else {
+      res.render('comments/edit', {campground_id: req.params.id, comment: foundComment});
+    }
+  });
+  
+});
 
-
+//UPDATE
+router.put('/:comment_id', function(req, res) {
+  // this was giving me trouble when comment[text] was not set for the value I was not saving the object right
+  // with req.body.comment, for some wierd reason it was not populating a full comment.
+  Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
+    if (err) {
+      console.log("error, updating the comment");
+      res.redirect('back');
+    } else {
+      console.log("Updated the following comment: " + updatedComment);
+      res.redirect('/campgrounds/' + req.params.id);
+    }
+  });
+});
 
 // Add middleware
 function isLoggedIn(req, res, next) {

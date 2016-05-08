@@ -31,7 +31,7 @@ router.get('/new', isLoggedIn, function(req, res) {
 //CREATE ROUTE - add new campground to DB
 router.post('/', isLoggedIn, function(req, res) {
     console.log("CREATE THE NEW campground.");
-    console.log('campground OBJECT = ' + req.body.campground.name);
+    //console.log('campground OBJECT = ' + req.body.campground.name);
     
     // Get data from form and add to campgrounds array.
     var name = req.sanitize(req.body.campground.name); // sanitize
@@ -60,7 +60,7 @@ router.post('/', isLoggedIn, function(req, res) {
         if (err) {
           console.log("ERROR CREATING CAMPGROUND: -- " + err);
         } else {
-          console.log("NEWLY CREATED CAMPGROUND ============ " + newCamp);
+          //console.log("NEWLY CREATED CAMPGROUND ============ " + newCamp);
           // Redirect us back to campgrounds.
           res.redirect('/campgrounds');
         }
@@ -80,7 +80,7 @@ router.get('/:id', function(req, res) {
       console.log(err);
     } else {
       // Render the page and pass the campground object
-      console.log(foundCamp);
+      //console.log(foundCamp);
       res.render('campgrounds/show', {theCamp: foundCamp});
     }
   });
@@ -110,7 +110,7 @@ router.put('/:id', checkCampgroundOwnership, function(req, res) {
       if (err) {
         res.redirect("campgrounds/campgrounds");
       } else {
-        console.log("UPDATED <br/>" + updatedCampground);
+        //console.log("UPDATED <br/>" + updatedCampground);
         res.redirect('../campgrounds/' + req.params.id);
       }
     })
