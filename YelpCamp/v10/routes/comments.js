@@ -56,6 +56,9 @@ router.post('/', isLoggedIn, function(req, res) {
   })
 });
 
+
+
+
 //EDIT
 router.get("/:comment_id/edit", function(req, res) {
   Comment.findById(req.params.comment_id, function(err, foundComment) {
@@ -67,6 +70,9 @@ router.get("/:comment_id/edit", function(req, res) {
   });
   
 });
+
+
+
 
 //UPDATE
 router.put('/:comment_id', function(req, res) {
@@ -82,6 +88,28 @@ router.put('/:comment_id', function(req, res) {
     }
   });
 });
+
+
+
+
+//DESTROY
+router.delete('/:comment_id', function(req, res) {
+  Comment.findByIdAndRemove(req.params.comment_id, req.params.comment, function(err, destroyedComment) {
+    if (err) {
+      console.log('error, deleteing the comment');
+      res.redirect('back');
+    } else {
+      console.log('destroyed the following comment: ' );
+    }
+  });
+});
+
+
+
+
+
+
+
 
 // Add middleware
 function isLoggedIn(req, res, next) {

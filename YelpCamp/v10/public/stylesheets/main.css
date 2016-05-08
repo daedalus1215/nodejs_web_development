@@ -49,3 +49,7 @@ form.form-center {
 #delete-form {
   display: inline; 
 }
+
+.comment {
+margin: 10px;
+}

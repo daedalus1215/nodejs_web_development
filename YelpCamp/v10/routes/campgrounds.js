@@ -47,6 +47,7 @@ router.post('/', isLoggedIn, function(req, res) {
             username: user.username
         }
     // Declare and instantiate new campground
+    // Declare and instantiate new campground
     var newCampground = 
                       { 
                         name: name, 
