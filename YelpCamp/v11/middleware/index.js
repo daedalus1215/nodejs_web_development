@@ -13,6 +13,7 @@ middlewareObject.isLoggedIn  = function (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
+  req.flash("error", "Please Login First!");
   res.redirect('/login');
 }
 
@@ -40,7 +41,7 @@ middlewareObject.checkCampgroundOwnership = function (req, res, next) {
       }
     });    
   } else {
-    res.redirect("back");
+    res.redirect("/login");
   }
 }
 

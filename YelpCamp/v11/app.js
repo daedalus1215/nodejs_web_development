@@ -6,6 +6,7 @@ var express           = require('express'),
     methodOverride    = require('method-override'),
     app               = express(),
     path              = require('path'),
+    flash             = require('connect-flash'),
     expressSanitizer  = require('express-sanitizer'),
     bodyParser        = require('body-parser');
    
@@ -34,6 +35,8 @@ app.use(expressSanitizer());
 app.set('view engine', 'ejs'); // Set the view engine to be ejs.
 app.use(methodOverride('_method')); // Tell out app that whenever we get the request that has _method as a parameter, take whatever it is equal to and treat that request as a put request or as a delete request.
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(flash());
+
 
 
 
