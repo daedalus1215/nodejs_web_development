@@ -1,0 +1,55 @@
+.nav-user {
+  font-weight: bold;  
+}
+
+.thumbnail {
+  padding: 0; /* images will now have no space inbetween the thumbnail border and the image. */
+}
+.thumbnail img {
+  width: 100%; /* images will now stretch the width. */
+}
+
+.thumbnail .caption-full {
+  padding: 9px;
+}
+
+form.form-center {
+  width: 30%; margin: 25px auto;
+}
+
+
+/*==========*/
+/* Show campgrounds page */
+/*==========*/
+.img-responsive {
+  width: 100%;
+}
+
+.camp-name {
+  float: left;
+}
+
+.campground-description {
+  display: block;
+  width: 100%;
+  clear:both;
+  text-align: left;
+}
+
+
+.camp-author {
+  display: inline-block;
+  width: 100%;
+  text-align: left; 
+}
+
+#edit-button { 
+  display: inline;
+}
+#delete-form {
+  display: inline; 
+}
+
+.comment {
+margin: 10px;
+}
