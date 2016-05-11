@@ -94,8 +94,10 @@ router.get('/:id', function(req, res) {
 router.get('/:id/edit', middlewareObject.checkCampgroundOwnership, function(req, res) {
   Campground.findById(req.params.id, function(err, foundCampground) {
     if (err) {
+      req.flash('error', 'Campground not found.');
       console.log("Error: " + err);
-    } else {
+      res.redirect('back');
+    } else {      
       res.render('campgrounds/edit', {campground: foundCampground});    
     } 
   });
@@ -109,9 +111,11 @@ router.put('/:id', middlewareObject.checkCampgroundOwnership, function(req, res)
   // Find the campground with provided ID
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, {new:true}, function(err, updatedCampground) {
       if (err) {
+        req.flash('error', 'Issue updating campground.');
         res.redirect("campgrounds/campgrounds");
       } else {
         //console.log("UPDATED <br/>" + updatedCampground);
+        req.flash('success', 'Campground updated.');
         res.redirect('../campgrounds/' + req.params.id);
       }
     })

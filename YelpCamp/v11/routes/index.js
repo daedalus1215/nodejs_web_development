@@ -30,11 +30,13 @@ router.post('/register', function(req, res) {
   
   User.register(newUser, req.body.password, function(err, rUser) {
     if (err) {
-      console.log("ERROR!!! " + err);
-      return res.render("register");
+      req.flash('error', err.message);
+      //console.log("ERROR!!! " + err);
+      return res.redirect("register");
     }
     
     passport.authenticate('local')(req, res, function() {
+      req.flash('success', 'Welcome to YelpCamp' + rUser.username);
       res.redirect('/campgrounds');
     });    
   });
@@ -73,17 +75,6 @@ router.get('/logout', function(req, res) {
   res.redirect('/campgrounds');
 });
 /************************************************* end - AUTH routerS ******************************************************************/
-
-
-// Add middleware
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    
-    return next();
-  }
-  
-  res.redirect('/login');
-}
 
 
 module.exports = router;
