@@ -47,6 +47,7 @@ router.post('/register', function(req, res) {
 
 //NEW Show login form
 router.get('/login', function(req, res) {
+  
   res.render('login');
 })
 
@@ -77,8 +78,10 @@ router.get('/logout', function(req, res) {
 // Add middleware
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
+    
     return next();
   }
+  
   res.redirect('/login');
 }
 

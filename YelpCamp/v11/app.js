@@ -62,7 +62,8 @@ passport.deserializeUser(User.deserializeUser());
 // Add Middleware
 app.use(function(req, res, next) {// we want to make sure every route checks to see if we have a currentUser object. This way the navbar can handle this accordinly.
   res.locals.currentUser = req.user; // anything placed in res.locals is anything inside of our template
-  res.locals.message = req.flash('error'); // every page now will have a message variable.
+  res.locals.error = req.flash('error'); // if we add anything to the req.flash we will then now have access to it on every page under error, i.e. <%= error %>
+  res.locals.success = req.flash('success'); // if we add anything to the req.flash('success') object we will now have it on our pages (like header), we will have access to it.
   next(); // we need to make sure we execute the next code, after the middleware.
 });
 

@@ -23,7 +23,7 @@
          <h4><a class="camp-name" href=""><%= theCamp.name %></a></h4>         
          <p class="campground-description"><%= theCamp.description %></p>
            <a class="camp-author" href=""><em>Submitted by: <%= theCamp.author.username %></em></a>
-            <!-- if there is a current user and if his id is the same as the author that belongs to this particular campground equals true, then show buttons. -->
+            
          <% if (currentUser && theCamp.author.id.equals(currentUser._id)) { %>
            <a id="edit-button" class="btn btn-xs btn-warning" href="/campgrounds/<%= theCamp.id %>/edit">Edit</a>
            <form id="delete-form" action="/campgrounds/<%= theCamp.id %>?_method=DELETE" method="POST">
