@@ -30,7 +30,7 @@ var User       = require('./models/user');
 
 // APP CONFIG
 mongoose.connect('mongodb://localhost/yelp_camp_v4'); // Must connect our ORM to the db.
-app.use(bodyParser.urlencoded({extended : true})) // make sure that we are using the body parser and setting extended option to true.
+app.use(bodyParser.urlencoded({extended : true})); // make sure that we are using the body parser and setting extended option to true.
 app.use(expressSanitizer());
 app.set('view engine', 'ejs'); // Set the view engine to be ejs.
 app.use(methodOverride('_method')); // Tell out app that whenever we get the request that has _method as a parameter, take whatever it is equal to and treat that request as a put request or as a delete request.
@@ -47,9 +47,9 @@ app.use(flash());
 
 // PASSPORT CONFIGURATION
 app.use(require('express-session')({
-  secret: 'node code',
-  resave: false,
-  saveUninitialized: false
+    secret: 'node code',
+    resave: false,
+    saveUninitialized: false
 }));
 
 app.use(passport.initialize());
@@ -60,11 +60,12 @@ passport.deserializeUser(User.deserializeUser());
 
 
 // Add Middleware
-app.use(function(req, res, next) {// we want to make sure every route checks to see if we have a currentUser object. This way the navbar can handle this accordinly.
-  res.locals.currentUser = req.user; // anything placed in res.locals is anything inside of our template
-  res.locals.error = req.flash('error'); // if we add anything to the req.flash we will then now have access to it on every page under error, i.e. <%= error %>
-  res.locals.success = req.flash('success'); // if we add anything to the req.flash('success') object we will now have it on our pages (like header), we will have access to it.
-  next(); // we need to make sure we execute the next code, after the middleware.
+app.use(function (req, res, next) {// we want to make sure every route checks to see if we have a currentUser object. This way the navbar can handle this accordinly.
+    'use strict';
+    res.locals.currentUser = req.user; // anything placed in res.locals is anything inside of our template
+    res.locals.error = req.flash('error'); // if we add anything to the req.flash we will then now have access to it on every page under error, i.e. <%= error %>
+    res.locals.success = req.flash('success'); // if we add anything to the req.flash('success') object we will now have it on our pages (like header), we will have access to it.
+    next(); // we need to make sure we execute the next code, after the middleware.
 });
 
 // Use those routes.
